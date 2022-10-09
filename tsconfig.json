@@ -21,7 +21,8 @@
     "types": [
       "@emotion/react/types/css-prop"
     ],
-    "jsxImportSource": "@emotion/react"
+    "jsxImportSource": "@emotion/react",
+    "baseUrl": "./src"
   },
   "include": [
     "next-env.d.ts",
