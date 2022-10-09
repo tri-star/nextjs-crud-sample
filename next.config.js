@@ -7,6 +7,8 @@ const nextConfig = {
     removeConsole: {
       exclude: ['error'],
     },
+    emotion: {
+    },
   }
 }
 
