@@ -5,7 +5,7 @@ const nextConfig = {
   compiler: {
     reactRemoveProperties: { properties: ['^data-test'] },
     removeConsole: {
-      exclude: ['error'],
+      exclude: ['info', 'warn', 'error'],
     },
     emotion: {
     },
