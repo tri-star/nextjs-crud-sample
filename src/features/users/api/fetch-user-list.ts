@@ -45,17 +45,21 @@ export const useFetchUserList = (shouldFetch: boolean): FetchUserListResponse =>
 
 
 export const mockFetchUserList = (): FetchUserListResponse => {
+
+  const count = 50
+  const users = [...Array(count)].map((_, i) => {
+    return {
+      id: `${i}`,
+      loginId: `user_${i}`,
+      name: `ユーザー${i}`,
+      email: `test_${i}@example.com`,
+      departmentId: `${i}`,
+    }
+  })
+
   return {
-    users: [
-      {
-        id: '1',
-        loginId: 'user001',
-        name: 'ユーザー1',
-        email: 'test@example.com',
-        departmentId: '1',
-      }
-    ],
-    count: 1,
+    users,
+    count,
     error: undefined,
   }
 }
