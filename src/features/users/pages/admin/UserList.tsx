@@ -1,3 +1,4 @@
+import { CenterBox } from "@/components/CenterBox"
 import { Box, CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import { NextPage } from "next"
 import { ReactNode } from "react"
@@ -18,13 +19,9 @@ const UserListPart = (users: User[]|undefined, error: string|undefined): ReactNo
     return (
       <TableRow>
         <TableCell colSpan={5}>
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
+          <CenterBox>
             <CircularProgress />
-          </Box>
+          </CenterBox>
         </TableCell>
       </TableRow>
     )
