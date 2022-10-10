@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode } from 'react'
-import { DefaultLayout } from '@/layouts/DefaultLayout'
+import { DefaultLayout } from '@/layouts/admin/DefaultLayout'
 import { startClientWorker } from '@/mocks/browser'
 import { isServer } from '@/common/ssr'
 import { startMockServer } from '@/mocks/server'
