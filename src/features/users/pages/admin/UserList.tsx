@@ -1,5 +1,6 @@
 import { CenterBox } from "@/components/CenterBox"
 import { Box, CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import { height } from "@mui/system"
 import { NextPage } from "next"
 import { ReactNode } from "react"
 import { useFetchUserList } from "../../api/fetch-user-list"
@@ -47,13 +48,17 @@ export const AdminUserList: NextPage = () => {
   const { users, count, error } = useFetchUserList(false)
 
   return (
-    <Box>
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      maxHeight: 'calc(100vh - 100px)'
+    }}>
       <Typography>ユーザー一覧</Typography>
 
       <Box>ユーザー数: {count}</Box>
 
       <TableContainer component={Paper}>
-        <Table>
+        <Table stickyHeader={true}>
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
