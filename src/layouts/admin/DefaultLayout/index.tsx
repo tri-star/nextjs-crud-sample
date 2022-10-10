@@ -51,7 +51,11 @@ export const DefaultLayout = (props: PropsWithChildren) => {
         <Box component="main" sx={{
           flexGrow: 1,
           height: '100vh',
-          overflow: 'auto'
+          overflow: 'auto',
+          ...(open && {
+            marginLeft:`200px`,
+            width: `calc(100% - ${drawerWidth})`}
+          ),
         }}>
           <Toolbar/>
           <Container  maxWidth="lg" sx={{ mt: 4 }}>
