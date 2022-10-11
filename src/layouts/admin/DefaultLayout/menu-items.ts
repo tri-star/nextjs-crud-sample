@@ -2,10 +2,12 @@
 export const menuItems = [
   {
     icon: 'home',
-    label: 'ホーム'
+    label: 'ホーム',
+    link: '/admin/dashboard',
   },
   {
     icon: 'person',
-    label: 'ユーザー'
+    label: 'ユーザー',
+    link: '/admin/users',
   }
 ]

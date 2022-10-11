@@ -1,4 +1,5 @@
 import { Drawer, Toolbar, IconButton, Icon, Divider, List, ListItemButton, ListItemIcon, ListItemText, css, useTheme } from "@mui/material"
+import Link from "next/link"
 import { menuItems } from "./menu-items"
 
 export const drawerWidth = '300px'
@@ -48,10 +49,13 @@ export const AppDrawer = (props: AppDrawerProps) => {
       <List component="nav">
         {menuItems.map((item) => {
           return (
-          <ListItemButton key={item.icon}>
-            <ListItemIcon><Icon>{item.icon}</Icon></ListItemIcon>
-            <ListItemText>{item.label}</ListItemText>
-          </ListItemButton>)
+            <Link href={item.link} key={item.icon}>
+              <ListItemButton>
+                <ListItemIcon><Icon>{item.icon}</Icon></ListItemIcon>
+                <ListItemText>{item.label}</ListItemText>
+              </ListItemButton>
+            </Link>
+          )
         })}
       </List>
     </Drawer>
