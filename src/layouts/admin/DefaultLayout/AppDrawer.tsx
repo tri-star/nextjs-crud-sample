@@ -1,6 +1,8 @@
 import { Drawer, Toolbar, IconButton, Icon, Divider, List, ListItemButton, ListItemIcon, ListItemText, css, useTheme } from "@mui/material"
 import Link from "next/link"
 import { menuItems } from "./menu-items"
+import type { MenuItem } from "./menu-items"
+import { useRouter } from "next/router"
 
 export const drawerWidth = '300px'
 
@@ -11,7 +13,14 @@ type AppDrawerProps = {
 
 export const AppDrawer = (props: AppDrawerProps) => {
 
+  const router = useRouter()
+
   const theme = useTheme()
+
+  const isSelected = (item: MenuItem) => {
+    console.log(router.asPath)
+    return router.asPath.match(new RegExp(`^${item.link}`)) ? true : false
+  }
 
   const drawerStyle = css({
     '& .MuiDrawer-paper': {
@@ -50,7 +59,7 @@ export const AppDrawer = (props: AppDrawerProps) => {
         {menuItems.map((item) => {
           return (
             <Link href={item.link} key={item.icon}>
-              <ListItemButton>
+              <ListItemButton selected={isSelected(item)}>
                 <ListItemIcon><Icon>{item.icon}</Icon></ListItemIcon>
                 <ListItemText>{item.label}</ListItemText>
               </ListItemButton>

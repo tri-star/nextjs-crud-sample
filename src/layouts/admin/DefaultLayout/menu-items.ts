@@ -1,4 +1,10 @@
 
+export type MenuItem = {
+  icon: string,
+  label: string,
+  link: string,
+}
+
 export const menuItems = [
   {
     icon: 'home',
