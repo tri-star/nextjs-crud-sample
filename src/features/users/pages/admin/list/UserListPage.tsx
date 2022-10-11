@@ -1,10 +1,11 @@
 import { CenterBox } from "@/components/CenterBox"
-import { Box, CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
-import { height } from "@mui/system"
+import PageTitle from "@/components/PageTitle"
+import { Box, CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@mui/material"
 import { NextPage } from "next"
 import { ReactNode } from "react"
-import { useFetchUserList } from "../../api/fetch-user-list"
-import { User } from "../../domain/user"
+import { useFetchUserList } from "../../../api/fetch-user-list"
+import { User } from "../../../domain/user"
+import { SearchForm } from "./SearchForm"
 
 
 const UserListPart = (users: User[]|undefined, error: string|undefined): ReactNode => {
@@ -43,7 +44,7 @@ const UserListPart = (users: User[]|undefined, error: string|undefined): ReactNo
   )
 }
 
-export const AdminUserList: NextPage = () => {
+export const AdminUserListPage: NextPage = () => {
 
   const { users, count, error } = useFetchUserList(false)
 
@@ -53,10 +54,11 @@ export const AdminUserList: NextPage = () => {
       flexDirection: 'column',
       maxHeight: 'calc(100vh - 100px)'
     }}>
-      <Typography>ユーザー一覧</Typography>
+      <PageTitle title="ユーザー一覧" />
 
-      <Box>ユーザー数: {count}</Box>
+      <SearchForm sx={{ my: 2 }} />
 
+      <Toolbar>ユーザー数: {count}</Toolbar>
       <TableContainer component={Paper}>
         <Table stickyHeader={true}>
           <TableHead>

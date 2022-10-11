@@ -1,3 +1,3 @@
-import { AdminUserList } from "@/features/users/pages/admin/UserList";
+import { AdminUserListPage } from "@/features/users/pages/admin/list/UserListPage";
 
-export default AdminUserList
+export default AdminUserListPage
