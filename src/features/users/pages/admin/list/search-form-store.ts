@@ -1,3 +1,4 @@
+import { useState } from "react"
 
 export type SearchFormData = {
   loginId: string | undefined,
@@ -6,6 +7,7 @@ export type SearchFormData = {
 }
 
 export const useSearchFormStore = () => {
+  const [currentPage, setCurrentPage] = useState(1)
   const state = {
 
   }
@@ -17,6 +19,8 @@ export const useSearchFormStore = () => {
 
   return {
     state,
+    currentPage,
+    setCurrentPage,
     search
   }
 }

@@ -1,10 +1,11 @@
 import { CenterBox } from "@/components/CenterBox"
 import PageTitle from "@/components/PageTitle"
-import { Box, CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@mui/material"
+import { Box, CircularProgress, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@mui/material"
 import { NextPage } from "next"
 import { ReactNode } from "react"
 import { useFetchUserList } from "../../../api/fetch-user-list"
 import { User } from "../../../domain/user"
+import { useSearchFormStore } from "./search-form-store"
 import { SearchForm } from "./SearchForm"
 
 
@@ -46,8 +47,9 @@ const UserListPart = (users: User[]|undefined, error: string|undefined): ReactNo
 
 export const AdminUserListPage: NextPage = () => {
 
-  const { users, count, error } = useFetchUserList(false)
-
+  const { currentPage, setCurrentPage } = useSearchFormStore()
+  const { users, count, pages, page, error } = useFetchUserList(false, currentPage)
+  
   return (
     <Box sx={{
       display: 'flex',
@@ -58,7 +60,11 @@ export const AdminUserListPage: NextPage = () => {
 
       <SearchForm sx={{ my: 2 }} />
 
-      <Toolbar>ユーザー数: {count}</Toolbar>
+      <Stack my={1} spacing={2} direction="row">
+        <span>ユーザー数: {count}</span>
+        <Box sx={{ flexGrow: 1 }}/>
+        <Pagination count={pages} page={page} shape="rounded" onChange={(_, p) => setCurrentPage(p)} />
+      </Stack>
       <TableContainer component={Paper}>
         <Table stickyHeader={true}>
           <TableHead>
@@ -75,6 +81,10 @@ export const AdminUserListPage: NextPage = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Stack my={2} spacing={2} direction="row">
+        <Box sx={{ flexGrow: 1 }}/>
+        <Pagination count={pages} page={page} shape="rounded" onChange={(_, p) => setCurrentPage(p)} />
+      </Stack>
 
     </Box>
   )
