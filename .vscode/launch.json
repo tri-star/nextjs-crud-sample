@@ -13,6 +13,9 @@
       ],
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack://_N_E/*": "${webRoot}/*"
+      }
     },
     {
       "name": "Next.js: debug server-side",
