@@ -1,7 +1,11 @@
 import { CenterBox } from "@/components/CenterBox"
+import { PageContainer } from "@/components/PageContainer"
 import PageTitle from "@/components/PageTitle"
+import { adminUserListUrl } from "@/routes/admin"
 import { Box, CircularProgress, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@mui/material"
 import { NextPage } from "next"
+import Link from "next/link"
+import { useRouter } from "next/router"
 import { ReactNode, useEffect } from "react"
 import { useFetchUserList } from "../../../api/fetch-user-list"
 import { User } from "../../../domain/user"
@@ -36,7 +40,7 @@ const UserListPart = (users: User[]|undefined, error: string|undefined): ReactNo
       <TableRow key={user.id}>
         <TableCell></TableCell>
         <TableCell>{user.id}</TableCell>
-        <TableCell>{user.loginId}</TableCell>
+        <TableCell><Link href={`/admin/users/${user.id}`}>{user.loginId}</Link></TableCell>
         <TableCell>{user.name}</TableCell>
         <TableCell>{user.email}</TableCell>
       </TableRow>
@@ -47,15 +51,20 @@ const UserListPart = (users: User[]|undefined, error: string|undefined): ReactNo
 
 export const AdminUserListPage: NextPage = () => {
 
+  const router = useRouter()
   const { currentPage, setCurrentPage } = useSearchFormStore()
   const { data, error } = useFetchUserList(false, currentPage)
   
+  useEffect(() => {
+    if(currentPage > 1) {
+      router.push(adminUserListUrl(currentPage).toString(), undefined, {
+        shallow: true
+      })
+    }
+  }, [currentPage])
+
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      maxHeight: 'calc(100vh - 100px)'
-    }}>
+    <PageContainer>
       <PageTitle title="ユーザー一覧" />
 
       <SearchForm sx={{ my: 2 }} />
@@ -86,6 +95,6 @@ export const AdminUserListPage: NextPage = () => {
         <Pagination count={data.pages} page={data.page ?? 1} shape="rounded" onChange={(_, p) => setCurrentPage(p)} />
       </Stack>
 
-    </Box>
+    </PageContainer>
   )
 }
