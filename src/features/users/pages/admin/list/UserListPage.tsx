@@ -56,11 +56,9 @@ export const AdminUserListPage: NextPage = () => {
   const { data, error } = useFetchUserList(false, currentPage)
   
   useEffect(() => {
-    if(currentPage > 1) {
-      router.push(adminUserListUrl(currentPage).toString(), undefined, {
-        shallow: true
-      })
-    }
+    router.push(adminUserListUrl(currentPage).toString(), undefined, {
+      shallow: true
+    })
   }, [currentPage])
 
   return (
