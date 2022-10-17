@@ -2,7 +2,7 @@ import { CenterBox } from "@/components/CenterBox"
 import PageTitle from "@/components/PageTitle"
 import { Box, CircularProgress, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@mui/material"
 import { NextPage } from "next"
-import { ReactNode } from "react"
+import { ReactNode, useEffect } from "react"
 import { useFetchUserList } from "../../../api/fetch-user-list"
 import { User } from "../../../domain/user"
 import { useSearchFormStore } from "./search-form-store"
@@ -48,7 +48,7 @@ const UserListPart = (users: User[]|undefined, error: string|undefined): ReactNo
 export const AdminUserListPage: NextPage = () => {
 
   const { currentPage, setCurrentPage } = useSearchFormStore()
-  const { users, count, pages, page, error } = useFetchUserList(false, currentPage)
+  const { data, error } = useFetchUserList(false, currentPage)
   
   return (
     <Box sx={{
@@ -61,9 +61,9 @@ export const AdminUserListPage: NextPage = () => {
       <SearchForm sx={{ my: 2 }} />
 
       <Stack my={1} spacing={2} direction="row">
-        <span>ユーザー数: {count}</span>
+        <span>ユーザー数: {data.count}</span>
         <Box sx={{ flexGrow: 1 }}/>
-        <Pagination count={pages} page={page} shape="rounded" onChange={(_, p) => setCurrentPage(p)} />
+        <Pagination count={data.pages} page={data.page ?? 1} shape="rounded" onChange={(_, p) => setCurrentPage(p)} />
       </Stack>
       <TableContainer component={Paper}>
         <Table stickyHeader={true}>
@@ -77,13 +77,13 @@ export const AdminUserListPage: NextPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-          {UserListPart(users, error)}
+          {UserListPart(data.users, error)}
           </TableBody>
         </Table>
       </TableContainer>
       <Stack my={2} spacing={2} direction="row">
         <Box sx={{ flexGrow: 1 }}/>
-        <Pagination count={pages} page={page} shape="rounded" onChange={(_, p) => setCurrentPage(p)} />
+        <Pagination count={data.pages} page={data.page ?? 1} shape="rounded" onChange={(_, p) => setCurrentPage(p)} />
       </Stack>
 
     </Box>

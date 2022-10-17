@@ -1,39 +1,50 @@
-import { appConfig } from "@/app-config";
-import { getApiBaseUrl } from "@/common/api";
+import { axios } from "@/lib/axios";
 import useSWR from "swr";
 import { User } from "../domain/user";
 
-
-const apiBase = getApiBaseUrl()
-
-type FetchUserListResponse = {
+type FetchUserListData = {
   users: User[] | undefined
   count: number
   pages: number
   page: number
+}
+
+type FetchUserListResponse = {
+  data: FetchUserListData,
   error: string | undefined
 }
 
 export const useFetchUserList = (shouldFetch: boolean, page: number): FetchUserListResponse => {
 
-  const fetcher = (url: string) => fetch(url).then(r => r.json())
-  const apiBase = appConfig.apiBase
-  const { data, error } = useSWR<FetchUserListResponse, string>(`${apiBase}/users/list?page=${page}`, fetcher)
-  const response = {
-    users: undefined,
-    count: 0,
-    pages: 0,
-    page: 1,
-    error: undefined
+  const fetcher = async () => {
+    const res = await axios.get(`users/list`, {
+      params: {
+        page: page.toString()
+      }
+    })
+    return res.data
   }
 
-  if (error) {
-    return {
+  const { data, error, mutate } = useSWR<FetchUserListData, string>([`users/list`, page], fetcher)
+  const response = {
+    data: {
       users: undefined,
       count: 0,
       pages: 0,
       page: 1,
-      error
+    },
+    error: undefined,
+  }
+
+  if (error) {
+    return {
+      data: {
+        users: undefined,
+        count: 0,
+        pages: 0,
+        page: 1,
+      },
+      error,
     }
   }
 
@@ -42,16 +53,18 @@ export const useFetchUserList = (shouldFetch: boolean, page: number): FetchUserL
   }
 
   return {
-    users: data.users,
-    count: data.count,
-    pages: data.pages,
-    page: data.page,
-    error: undefined
+    data: {
+      users: data.users,
+      count: data.count,
+      pages: data.pages,
+      page: data.page,
+    },
+    error: undefined,
   }
 }
 
 
-export const mockFetchUserList = (page: number): FetchUserListResponse => {
+export const mockFetchUserList = (page: number): FetchUserListData => {
 
   const pageSize = 50
   const count = 500
@@ -71,6 +84,5 @@ export const mockFetchUserList = (page: number): FetchUserListResponse => {
     count,
     pages: Math.trunc(count / pageSize) + ((count % pageSize == 0) ? 1 : 0),
     page,
-    error: undefined,
   }
 }
