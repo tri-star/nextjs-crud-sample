@@ -69,7 +69,7 @@ export const mockFetchUserList = (page: number): FetchUserListData => {
   const pageSize = 50
   const count = 500
   const users = [...Array(pageSize)].map((_, i) => {
-    const no = (page - 1) * pageSize + i
+    const no = (page - 1) * pageSize + i + 1
     return {
       id: `${no}`,
       loginId: `user_${no}`,
