@@ -17,7 +17,7 @@ type FetchUserListResponse = {
 export const useFetchUserList = (shouldFetch: boolean, page: number): FetchUserListResponse => {
 
   const fetcher = async () => {
-    const res = await axios.get(`users/list`, {
+    const res = await axios.get(`admin/users`, {
       params: {
         page: page.toString()
       }
@@ -25,7 +25,7 @@ export const useFetchUserList = (shouldFetch: boolean, page: number): FetchUserL
     return res.data
   }
 
-  const { data, error, mutate } = useSWR<FetchUserListData, string>([`users/list`, page], fetcher)
+  const { data, error, mutate } = useSWR<FetchUserListData, string>([`admin/users`, page], fetcher)
   const response = {
     data: {
       users: undefined,
