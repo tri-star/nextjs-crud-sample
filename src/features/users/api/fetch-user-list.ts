@@ -1,4 +1,7 @@
+import { appConfig } from "@/app-config";
 import { axios } from "@/lib/axios";
+import { mockDb } from "@/mocks/db";
+import { rest } from "msw";
 import useSWR from "swr";
 import { User } from "../domain/user";
 
@@ -64,25 +67,21 @@ export const useFetchUserList = (shouldFetch: boolean, page: number): FetchUserL
 }
 
 
-export const mockFetchUserList = (page: number): FetchUserListData => {
+export const mockFetchUserList = rest.get(`${appConfig.apiBase}/admin/users`, (req, res, ctx) => {
 
+  const page = +(req.url.searchParams.get('page') ?? '1')
   const pageSize = 50
-  const count = 500
-  const users = [...Array(pageSize)].map((_, i) => {
-    const no = (page - 1) * pageSize + i + 1
-    return {
-      id: `${no}`,
-      loginId: `user_${no}`,
-      name: `ユーザー${no}`,
-      email: `test_${no}@example.com`,
-      departmentId: `${no}`,
-    }
-  })
+  const totalCount = mockDb.user.count()
+  const pages = Math.trunc(totalCount / pageSize) + ((totalCount % pageSize == 0) ? 1 : 0)
 
-  return {
+  const users = mockDb.user.findMany({
+    take: 50,
+    skip: (page - 1) * pageSize
+  })
+  return res(ctx.status(200), ctx.json({
     users,
-    count,
-    pages: Math.trunc(count / pageSize) + ((count % pageSize == 0) ? 1 : 0),
-    page,
-  }
-}
+    count: mockDb.user.count(),
+    pages,
+    page: page,
+  }))
+})

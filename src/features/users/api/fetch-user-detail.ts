@@ -1,4 +1,7 @@
+import { appConfig } from "@/app-config";
 import { axios } from "@/lib/axios";
+import { mockDb } from "@/mocks/db";
+import { rest } from "msw";
 import useSWR from "swr";
 import { User } from "../domain/user";
 
@@ -40,17 +43,25 @@ export const useFetchUserDetail = (userId: number | null): FetchUserDetailRespon
 }
 
 
-export const mockFetchUserDetail = (id: number): FetchUserDetailData => {
+export const mockFetchUserDetail = rest.get(`${appConfig.apiBase}/admin/users/:id`, (req, res, ctx) => {
 
-  if (!id || id >= 500) {
-    throw new Error('無効なユーザーIDです')
-  }
+  const { id: userId } = req.params
 
-  return {
-    id: `${id}`,
-    loginId: `user_${id}`,
-    name: `ユーザー${id}`,
-    email: `test_${id}@example.com`,
-    departmentId: `${id}`,
+  try {
+    const user = mockDb.user.findFirst({
+      where: {
+        id: {
+          equals: +userId
+        }
+      }
+    })
+    if (!user) {
+      throw new Error('Not found')
+    }
+    return res(ctx.status(200), ctx.json(user))
+  } catch (e) {
+    if (e instanceof Error) {
+      return res(ctx.status(404), ctx.json(e))
+    }
   }
-}
+})
