@@ -13,7 +13,7 @@ import { useEffect } from "react";
 export const UserDetailPage: NextPage = () => {
 
   const router = useRouter()
-  const { data, error } = useFetchUserDetail(+(router.query?.id ?? 0) )
+  const { data, error } = useFetchUserDetail(`${router.query?.id ?? ''}`)
 
   const handleBack = () => {
     router.back()

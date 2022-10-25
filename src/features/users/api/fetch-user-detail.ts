@@ -12,7 +12,7 @@ type FetchUserDetailResponse = {
   error: string | undefined
 }
 
-export const useFetchUserDetail = (userId: number | null): FetchUserDetailResponse => {
+export const useFetchUserDetail = (userId: string | null): FetchUserDetailResponse => {
 
   const fetcher = async () => {
     const res = await axios.get(`admin/users/${userId}`)
@@ -51,7 +51,7 @@ export const mockFetchUserDetail = rest.get(`${appConfig.apiBase}/admin/users/:i
     const user = mockDb.user.findFirst({
       where: {
         id: {
-          equals: +userId
+          equals: userId.toString()
         }
       }
     })
