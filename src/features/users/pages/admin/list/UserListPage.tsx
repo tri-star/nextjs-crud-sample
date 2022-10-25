@@ -1,8 +1,8 @@
 import { CenterBox } from "@/components/CenterBox"
 import { PageContainer } from "@/components/PageContainer"
 import PageTitle from "@/components/PageTitle"
-import { adminUserListUrl } from "@/routes/admin"
-import { Box, CircularProgress, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@mui/material"
+import { adminUserAddUrl, adminUserListUrl } from "@/routes/admin"
+import { Box, Button, CircularProgress, Icon, IconButton, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@mui/material"
 import { NextPage } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -69,13 +69,20 @@ export const AdminUserListPage: NextPage = () => {
     }
   }, [currentPage])
 
+  const handleAddClick = () => {
+    router.push(adminUserAddUrl().toString())
+  }
+
   return (
     <PageContainer>
       <PageTitle title="ユーザー一覧" />
 
       <SearchForm sx={{ my: 2 }} />
 
-      <Stack my={1} spacing={2} direction="row">
+      <Stack my={1} spacing={2} direction="row" alignItems="center">
+        <Button startIcon={<Icon>add</Icon>} variant="contained" onClick={handleAddClick} >登録</Button>
+        </Stack>
+      <Stack my={1} spacing={2} direction="row" alignItems="center">
         <span>ユーザー数: {data.count}</span>
         <Box sx={{ flexGrow: 1 }}/>
         <Pagination count={data.pages} page={data.page ?? 1} shape="rounded" onChange={(_, p) => setCurrentPage(p)} />

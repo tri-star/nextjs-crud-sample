@@ -16,3 +16,7 @@ export const adminUserListUrl = (page: number): UrlBuilder => {
 export const adminUserDetailUrl = (userId: number) => {
   return `/admin/users/${userId}`
 }
+
+export const adminUserAddUrl = () => {
+  return `/admin/users/add`
+}
