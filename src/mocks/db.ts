@@ -1,9 +1,10 @@
 import { isServer } from "@/common/ssr";
 import { factory, primaryKey } from "@mswjs/data";
+import { ulid } from 'ulid'
 
 export const mockDb = factory({
   user: {
-    id: primaryKey(Number),
+    id: primaryKey(String),
     loginId: String,
     name: String,
     email: String,
@@ -48,7 +49,7 @@ export const initDb = () => {
     [...Array(500)].forEach((_, i) => {
       const id = i + 1
       mockDb.user.create({
-        id: id,
+        id: ulid(),
         loginId: `user_${id}`,
         name: `ユーザー${id}`,
         email: `test${id}@example.com`,

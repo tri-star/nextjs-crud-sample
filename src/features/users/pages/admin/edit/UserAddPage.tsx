@@ -11,7 +11,7 @@ import { useUserFormStore } from "./user-form-store";
 export const UserAddPage: NextPage = () => {
 
   const router = useRouter()
-  const { register, errors, isValid, handleSubmit, onSubmit } = useUserFormStore()
+  const { register, errors, handleSubmit, onSubmit, canSubmit } = useUserFormStore()
   
   const handleBack = () => {
     router.back()
@@ -61,7 +61,7 @@ export const UserAddPage: NextPage = () => {
         </Paper>
 
         <Stack direction="row" spacing={2} justifyContent="center" my={2}>
-          <Button variant="contained" startIcon={<Icon>save</Icon>} type="submit" disabled={!isValid}>保存</Button>
+          <Button variant="contained" startIcon={<Icon>save</Icon>} type="submit" disabled={!canSubmit()}>保存</Button>
           <Button variant="contained" startIcon={<Icon>chevron_left</Icon>} onClick={handleBack}>戻る</Button>
         </Stack>
       </form>

@@ -1,5 +1,9 @@
+import { appConfig } from "@/app-config"
 import { delay } from "@/common/delay"
-import axios from "axios"
+import { axios } from "@/lib/axios"
+import { mockDb } from "@/mocks/db"
+import { ulid } from "ulid"
+import { rest } from "msw"
 import { AddUserFormData } from "../domain/user"
 
 type AddUserRequest = {
@@ -20,3 +24,24 @@ export const addUser = async (data: AddUserFormData) => {
 
   await axios.post(`admin/users`, request)
 }
+
+
+
+export const mockAddUser = rest.post(`${appConfig.apiBase}/admin/users`, async (req, res, ctx) => {
+
+  const { name, loginId, email } = await req.json()
+
+  try {
+    const user = mockDb.user.create({
+      id: ulid(),
+      name,
+      loginId,
+      email,
+    })
+    return res(ctx.status(200), ctx.json(user))
+  } catch (e) {
+    if (e instanceof Error) {
+      return res(ctx.status(400), ctx.json(e))
+    }
+  }
+})
