@@ -1,3 +1,4 @@
+import { ErrorAlertProvider } from "@/components/ErrorAlert";
 import { AppBar, Box, Container, createTheme, CssBaseline, Divider, Drawer, Icon, IconButton, List, ThemeProvider, Toolbar, Typography } from "@mui/material";
 import { PropsWithChildren, useState } from "react";
 import { AppDrawer, drawerWidth } from "./AppDrawer";
@@ -59,7 +60,9 @@ export const DefaultLayout = (props: PropsWithChildren) => {
         }}>
           <Toolbar/>
           <Container  maxWidth="lg" sx={{ mt: 4 }}>
+          <ErrorAlertProvider>
           {props.children}
+          </ErrorAlertProvider>
           </Container>
         </Box>
       </Box>

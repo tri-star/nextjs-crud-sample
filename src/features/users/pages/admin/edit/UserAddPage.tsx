@@ -1,3 +1,4 @@
+import { ErrorAlert } from "@/components/ErrorAlert";
 import { TitleLabel } from "@/components/form/TitleLabel";
 import { PageContainer } from "@/components/PageContainer";
 import PageTitle from "@/components/PageTitle";
@@ -21,6 +22,7 @@ export const UserAddPage: NextPage = () => {
   return (
     <PageContainer>
       <PageTitle title="ユーザー登録" />
+      <ErrorAlert/>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Paper sx={{ p: 2, my: 1 }}>
           <Typography>基本情報</Typography>

@@ -2,16 +2,13 @@ import { useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { AddUserFormData } from "@/features/users/domain/user"
+import { addUser } from "@/features/users/api/add-user"
+import { useErrorAlert } from "@/common/error-alert"
 
-// 登録・編集共通のユーザー情報
-type BaseUserData = {
-  name: string,
-  loginId: string,
-  email: string
-}
 
 type UserAddFormState = {
-  userData: BaseUserData,
+  userData: AddUserFormData,
 }
 
 const schema = yup.object({
@@ -22,6 +19,7 @@ const schema = yup.object({
 
 export const useUserFormStore = () => {
 
+  const { showErrorAlert } = useErrorAlert()
   const state = useState<UserAddFormState>({
     userData: {
       name: '',
@@ -37,14 +35,14 @@ export const useUserFormStore = () => {
       errors,
       isValid
     }
-  } = useForm<BaseUserData>({
+  } = useForm<AddUserFormData>({
     mode: "onChange",
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = (data: object) => {
-    console.info('called')
-    console.info(data)
+  const onSubmit = async (data: AddUserFormData) => {
+    //await addUser(data)
+    showErrorAlert('エラーが発生しました')
   }
 
   return {
