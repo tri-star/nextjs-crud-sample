@@ -1,4 +1,4 @@
-import { ErrorAlert } from "@/components/ErrorAlert";
+import { AppAlert } from "@/components/AppAlert";
 import { TitleLabel } from "@/components/form/TitleLabel";
 import { PageContainer } from "@/components/PageContainer";
 import PageTitle from "@/components/PageTitle";
@@ -11,7 +11,7 @@ import { useUserFormStore } from "./user-form-store";
 export const UserAddPage: NextPage = () => {
 
   const router = useRouter()
-  const { register, errors, handleSubmit, onSubmit, canSubmit } = useUserFormStore()
+  const { register, errors, loading, handleSubmit, onSubmit, canSubmit } = useUserFormStore()
   
   const handleBack = () => {
     router.back()
@@ -22,7 +22,7 @@ export const UserAddPage: NextPage = () => {
   return (
     <PageContainer>
       <PageTitle title="ユーザー登録" />
-      <ErrorAlert/>
+      <AppAlert/>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Paper sx={{ p: 2, my: 1 }}>
           <Typography>基本情報</Typography>
@@ -61,7 +61,9 @@ export const UserAddPage: NextPage = () => {
         </Paper>
 
         <Stack direction="row" spacing={2} justifyContent="center" my={2}>
-          <Button variant="contained" startIcon={<Icon>save</Icon>} type="submit" disabled={!canSubmit()}>保存</Button>
+          <Button variant="contained" startIcon={<Icon>save</Icon>} type="submit" disabled={!canSubmit()}>
+            { loading ? '保存中...' : '保存' }
+          </Button>
           <Button variant="contained" startIcon={<Icon>chevron_left</Icon>} onClick={handleBack}>戻る</Button>
         </Stack>
       </form>

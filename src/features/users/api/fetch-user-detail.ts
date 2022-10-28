@@ -1,4 +1,5 @@
 import { appConfig } from "@/app-config";
+import { delay } from "@/common/delay";
 import { axios } from "@/lib/axios";
 import { mockDb } from "@/mocks/db";
 import { rest } from "msw";
@@ -15,6 +16,7 @@ type FetchUserDetailResponse = {
 export const useFetchUserDetail = (userId: string | null): FetchUserDetailResponse => {
 
   const fetcher = async () => {
+    await delay(800)
     const res = await axios.get(`admin/users/${userId}`)
     return res.data
   }

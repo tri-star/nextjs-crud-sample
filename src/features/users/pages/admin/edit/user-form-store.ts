@@ -4,7 +4,7 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { AddUserFormData } from "@/features/users/domain/user"
 import { addUser } from "@/features/users/api/add-user"
-import { useErrorAlert } from "@/common/error-alert"
+import { useAlert } from "@/common/alert"
 import { useLoading } from "@/common/loading"
 
 
@@ -20,7 +20,7 @@ const schema = yup.object({
 
 export const useUserFormStore = () => {
 
-  const { showErrorAlert } = useErrorAlert()
+  const { showAlert } = useAlert()
   const { loading, withLoading } = useLoading()
   const state = useState<UserAddFormState>({
     userData: {
@@ -57,10 +57,10 @@ export const useUserFormStore = () => {
 
     try {
       await withLoading(async () => {
-        addUser(data)
+        await addUser(data)
       })
     } catch (e) {
-      showErrorAlert('エラーが発生しました')
+      showAlert('エラーが発生しました')
     }
   }
 
