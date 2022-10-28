@@ -58,6 +58,7 @@ export const useUserFormStore = () => {
     try {
       await withLoading(async () => {
         await addUser(data)
+        showAlert('登録完了しました', 'success')
       })
     } catch (e) {
       showAlert('エラーが発生しました')
