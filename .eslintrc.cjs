@@ -16,8 +16,6 @@ module.exports = {
     "plugin:jest/recommended",
     "next/core-web-vitals",
   ],
-  overrides: [
-  ],
   parserOptions: {
     ecmaVersion: 'latest',
     tsconfigRootDir: ".",
@@ -35,6 +33,7 @@ module.exports = {
     "@typescript-eslint/triple-slash-reference": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/restrict-template-expressions": "off"
   },
   "settings": {
     "react": {
