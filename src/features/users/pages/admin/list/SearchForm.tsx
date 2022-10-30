@@ -1,14 +1,13 @@
-import { Button, Grid, InputLabel, Paper, SxProps, TextField, Theme, Typography } from "@mui/material"
-import { css, Stack } from "@mui/system"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { SearchFormData, useSearchFormStore } from "./search-form-store"
+import { Button, Grid, InputLabel, Paper, SxProps, TextField, Theme, Typography } from '@mui/material'
+import { css, Stack } from '@mui/system'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { SearchFormData, useSearchFormStore } from './search-form-store'
 
 type Props = {
   sx?: SxProps<Theme>
 }
 
 export const SearchForm = (props: Props) => {
-  
   const { search } = useSearchFormStore()
   const { handleSubmit, register } = useForm<SearchFormData>()
 
@@ -16,11 +15,11 @@ export const SearchForm = (props: Props) => {
     display: 'inline-block',
     width: '180px',
     textAlign: 'right',
-    paddingRight: '10px',
+    paddingRight: '10px'
   })
 
   return (
-    <Paper sx={{...props.sx, p: 2}}>
+    <Paper sx={{ ...props.sx, p: 2 }}>
       <Typography>簡易検索</Typography>
 
       <form onSubmit={handleSubmit(search)}>

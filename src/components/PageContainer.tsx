@@ -1,8 +1,7 @@
-import { Box } from "@mui/material"
-import { PropsWithChildren, ReactElement } from "react"
+import { Box } from '@mui/material'
+import { PropsWithChildren, ReactElement } from 'react'
 
-
-export const PageContainer = ({children}: PropsWithChildren): ReactElement => {
+export const PageContainer = ({ children }: PropsWithChildren): ReactElement => {
   return (
     <Box sx={{
       display: 'flex',

@@ -1,5 +1,5 @@
-import { isServer } from "@/common/ssr";
-import { factory, primaryKey } from "@mswjs/data";
+import { isServer } from '@/common/ssr'
+import { factory, primaryKey } from '@mswjs/data'
 import { ulid } from 'ulid'
 
 export const mockDb = factory({
@@ -30,7 +30,6 @@ export const persistDb = (model: Model) => {
   window.localStorage.setItem('msw-db', JSON.stringify(data))
 }
 
-
 export const initDb = () => {
   if (isServer()) {
     return
@@ -53,7 +52,7 @@ export const initDb = () => {
         loginId: `user_${id}`,
         name: `ユーザー${id}`,
         email: `test${id}@example.com`,
-        departmentId: 1,
+        departmentId: 1
       })
     })
   }

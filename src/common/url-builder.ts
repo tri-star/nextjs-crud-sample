@@ -1,4 +1,4 @@
-import { URLSearchParams } from "url"
+import { URLSearchParams } from 'url'
 
 export type UrlParts = {
   path: string
@@ -6,10 +6,10 @@ export type UrlParts = {
 }
 
 export class UrlBuilder {
-  constructor(private urlParts: UrlParts) {
+  constructor (private readonly urlParts: UrlParts) {
   }
 
-  build(): string {
+  build (): string {
     let url = this.urlParts.path
     if (Array.from(this.urlParts.searchParams?.keys() ?? []).length > 0) {
       url += '?' + this.urlParts.searchParams?.toString()
@@ -17,7 +17,7 @@ export class UrlBuilder {
     return url
   }
 
-  toString(): string {
+  toString (): string {
     return this.build()
   }
 }

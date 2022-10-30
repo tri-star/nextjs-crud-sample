@@ -1,10 +1,9 @@
-import { AppAlertProvider } from "@/components/AppAlert";
-import { AppBar, Box, Container, createTheme, CssBaseline, Divider, Drawer, Icon, IconButton, List, ThemeProvider, Toolbar, Typography } from "@mui/material";
-import { PropsWithChildren, useState } from "react";
-import { AppDrawer, drawerWidth } from "./AppDrawer";
+import { AppAlertProvider } from '@/components/AppAlert'
+import { AppBar, Box, Container, createTheme, CssBaseline, Divider, Drawer, Icon, IconButton, List, ThemeProvider, Toolbar, Typography } from '@mui/material'
+import { PropsWithChildren, useState } from 'react'
+import { AppDrawer, drawerWidth } from './AppDrawer'
 
 export const DefaultLayout = (props: PropsWithChildren) => {
-
   const [open, setOpen] = useState(true)
   const theme = createTheme()
   const handleToggleDrawer = () => {
@@ -18,15 +17,15 @@ export const DefaultLayout = (props: PropsWithChildren) => {
       }}>
         <CssBaseline/>
         <AppBar sx={{
-          zIndex: theme.zIndex.drawer+1,
+          zIndex: theme.zIndex.drawer + 1,
           transition: theme.transitions.create(['width', 'margin-left'], {
             easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
+            duration: theme.transitions.duration.enteringScreen
           }),
-              ...(open && {
-            marginLeft:`200px`,
+          ...(open && {
+            marginLeft: '200px',
             width: `calc(100% - ${drawerWidth})`
-          }) 
+          })
         }}>
           <Toolbar sx={{ pr: '24px' }}>
 
@@ -36,8 +35,8 @@ export const DefaultLayout = (props: PropsWithChildren) => {
               onClick={handleToggleDrawer}
               sx={{
                 marginRight: '36px',
-                color: "inherit",
-                ...(open && {display: 'none'})
+                color: 'inherit',
+                ...(open && { display: 'none' })
               }}
             >
               <Icon>menu</Icon>
@@ -54,12 +53,13 @@ export const DefaultLayout = (props: PropsWithChildren) => {
           height: '100vh',
           overflow: 'auto',
           ...(open && {
-            marginLeft:`200px`,
-            width: `calc(100% - ${drawerWidth})`}
-          ),
+            marginLeft: '200px',
+            width: `calc(100% - ${drawerWidth})`
+          }
+          )
         }}>
           <Toolbar/>
-          <Container  maxWidth="lg" sx={{ mt: 4 }}>
+          <Container maxWidth="lg" sx={{ mt: 4 }}>
           <AppAlertProvider>
           {props.children}
           </AppAlertProvider>

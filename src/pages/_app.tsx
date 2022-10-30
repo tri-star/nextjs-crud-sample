@@ -15,17 +15,14 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-if(isServer()) {
+if (isServer()) {
   startMockServer()
 } else {
   startClientWorker()
 }
 
-
-
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-
-  const getDefaultLayout = (page: ReactNode) => DefaultLayout({children: page})
+function MyApp ({ Component, pageProps }: AppPropsWithLayout) {
+  const getDefaultLayout = (page: ReactNode) => DefaultLayout({ children: page })
   const getLayout = Component.getLayout ?? getDefaultLayout
 
   initializeYup()

@@ -1,25 +1,24 @@
-import { Drawer, Toolbar, IconButton, Icon, Divider, List, ListItemButton, ListItemIcon, ListItemText, css, useTheme } from "@mui/material"
-import Link from "next/link"
-import { menuItems } from "./menu-items"
-import type { MenuItem } from "./menu-items"
-import { useRouter } from "next/router"
+import { Drawer, Toolbar, IconButton, Icon, Divider, List, ListItemButton, ListItemIcon, ListItemText, css, useTheme } from '@mui/material'
+import Link from 'next/link'
+import { menuItems } from './menu-items'
+import type { MenuItem } from './menu-items'
+import { useRouter } from 'next/router'
 
 export const drawerWidth = '300px'
 
 type AppDrawerProps = {
-  open: boolean,
+  open: boolean
   handleToggleDrawer: () => void
 }
 
 export const AppDrawer = (props: AppDrawerProps) => {
-
   const router = useRouter()
 
   const theme = useTheme()
 
   const isSelected = (item: MenuItem) => {
     console.log(router.asPath)
-    return router.asPath.match(new RegExp(`^${item.link}`)) ? true : false
+    return (router.asPath.match(new RegExp(`^${item.link}`)) != null)
   }
 
   const drawerStyle = css({
@@ -29,7 +28,7 @@ export const AppDrawer = (props: AppDrawerProps) => {
       whiteSpace: 'nowrap',
       transition: theme.transitions.create(['width'], {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
+        duration: theme.transitions.duration.enteringScreen
       }),
       ...(!props.open && {
         overflowX: 'hidden',
@@ -39,8 +38,8 @@ export const AppDrawer = (props: AppDrawerProps) => {
   })
 
   return (
-    <Drawer variant="permanent" 
-    open={props.open} 
+    <Drawer variant="permanent"
+    open={props.open}
     onClose={props.handleToggleDrawer}
     css={drawerStyle}
     >

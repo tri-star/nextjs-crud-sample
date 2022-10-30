@@ -1,4 +1,4 @@
-import { setLocale } from "yup";
+import { setLocale } from 'yup'
 
 export const initializeYup = () => {
   setLocale({
@@ -6,5 +6,4 @@ export const initializeYup = () => {
       required: '必ず入力してください。'
     }
   })
-
 }

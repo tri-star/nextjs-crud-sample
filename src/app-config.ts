@@ -1,4 +1,4 @@
-import { getApiBaseUrl } from "./common/api"
+import { getApiBaseUrl } from './common/api'
 
 export const appConfig = {
   apiBase: getApiBaseUrl()

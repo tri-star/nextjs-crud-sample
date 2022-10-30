@@ -1,10 +1,10 @@
-import { appConfig } from "@/app-config";
-import { delay } from "@/common/delay";
-import { axios } from "@/lib/axios";
-import { mockDb } from "@/mocks/db";
-import { rest } from "msw";
-import useSWR from "swr";
-import { User } from "../domain/user";
+import { appConfig } from '@/app-config'
+import { delay } from '@/common/delay'
+import { axios } from '@/lib/axios'
+import { mockDb } from '@/mocks/db'
+import { rest } from 'msw'
+import useSWR from 'swr'
+import { User } from '../domain/user'
 
 type FetchUserListData = {
   users: User[] | undefined
@@ -14,15 +14,14 @@ type FetchUserListData = {
 }
 
 type FetchUserListResponse = {
-  data: FetchUserListData,
+  data: FetchUserListData
   error: string | undefined
 }
 
 export const useFetchUserList = (shouldFetch: boolean, page: number): FetchUserListResponse => {
-
   const fetcher = async () => {
     await delay(800)
-    const res = await axios.get(`admin/users`, {
+    const res = await axios.get('admin/users', {
       params: {
         page: page.toString()
       }
@@ -30,15 +29,15 @@ export const useFetchUserList = (shouldFetch: boolean, page: number): FetchUserL
     return res.data
   }
 
-  const { data, error, mutate } = useSWR<FetchUserListData, string>([`admin/users`, page], fetcher)
+  const { data, error, mutate } = useSWR<FetchUserListData, string>(['admin/users', page], fetcher)
   const response = {
     data: {
       users: undefined,
       count: 0,
       pages: 0,
-      page: 1,
+      page: 1
     },
-    error: undefined,
+    error: undefined
   }
 
   if (error) {
@@ -47,13 +46,13 @@ export const useFetchUserList = (shouldFetch: boolean, page: number): FetchUserL
         users: undefined,
         count: 0,
         pages: 0,
-        page: 1,
+        page: 1
       },
-      error,
+      error
     }
   }
 
-  if (!data) {
+  if (data == null) {
     return response
   }
 
@@ -62,15 +61,13 @@ export const useFetchUserList = (shouldFetch: boolean, page: number): FetchUserL
       users: data.users,
       count: data.count,
       pages: data.pages,
-      page: data.page,
+      page: data.page
     },
-    error: undefined,
+    error: undefined
   }
 }
 
-
 export const mockFetchUserList = rest.get(`${appConfig.apiBase}/admin/users`, (req, res, ctx) => {
-
   const page = +(req.url.searchParams.get('page') ?? '1')
   const pageSize = 50
   const totalCount = mockDb.user.count()
@@ -84,6 +81,6 @@ export const mockFetchUserList = rest.get(`${appConfig.apiBase}/admin/users`, (r
     users,
     count: mockDb.user.count(),
     pages,
-    page: page,
+    page
   }))
 })

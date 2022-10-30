@@ -1,20 +1,19 @@
-import { CenterBox } from "@/components/CenterBox"
-import { PageContainer } from "@/components/PageContainer"
-import PageTitle from "@/components/PageTitle"
-import { adminUserAddUrl, adminUserListUrl } from "@/routes/admin"
-import { Box, Button, CircularProgress, Icon, IconButton, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@mui/material"
-import { NextPage } from "next"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { ReactNode, useEffect } from "react"
-import { useFetchUserList } from "../../../api/fetch-user-list"
-import { User } from "../../../domain/user"
-import { useSearchFormStore } from "./search-form-store"
-import { SearchForm } from "./SearchForm"
+import { CenterBox } from '@/components/CenterBox'
+import { PageContainer } from '@/components/PageContainer'
+import PageTitle from '@/components/PageTitle'
+import { adminUserAddUrl, adminUserListUrl } from '@/routes/admin'
+import { Box, Button, CircularProgress, Icon, IconButton, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@mui/material'
+import { NextPage } from 'next'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { ReactNode, useEffect } from 'react'
+import { useFetchUserList } from '../../../api/fetch-user-list'
+import { User } from '../../../domain/user'
+import { useSearchFormStore } from './search-form-store'
+import { SearchForm } from './SearchForm'
 
-
-const UserListPart = (users: User[]|undefined, error: string|undefined): ReactNode => {
-  if(error) {
+const UserListPart = (users: User[] | undefined, error: string | undefined): ReactNode => {
+  if (error) {
     return (
       <TableRow>
         <TableCell colSpan={5}>検索中にエラーが発生しました。</TableCell>
@@ -22,7 +21,7 @@ const UserListPart = (users: User[]|undefined, error: string|undefined): ReactNo
     )
   }
 
-  if(!users) {
+  if (users == null) {
     return (
       <TableRow>
         <TableCell colSpan={5}>
@@ -33,7 +32,6 @@ const UserListPart = (users: User[]|undefined, error: string|undefined): ReactNo
       </TableRow>
     )
   }
-
 
   return (
     users?.map((user) => (
@@ -50,19 +48,18 @@ const UserListPart = (users: User[]|undefined, error: string|undefined): ReactNo
 }
 
 export const AdminUserListPage: NextPage = () => {
-
   const router = useRouter()
   const { currentPage, setCurrentPage } = useSearchFormStore()
   const { data, error } = useFetchUserList(false, currentPage)
-  
+
   useEffect(() => {
-    if(router.isReady) {
+    if (router.isReady) {
       setCurrentPage(+(router.query.page ?? 1))
     }
   }, [router, router.query])
 
   useEffect(() => {
-    if(router.isReady) {
+    if (router.isReady) {
       router.push(adminUserListUrl(currentPage).toString(), undefined, {
         shallow: true
       })

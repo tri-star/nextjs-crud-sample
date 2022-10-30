@@ -1,17 +1,16 @@
-import { AppAlertContext } from "@/components/AppAlert"
-import { useContext } from "react"
+import { AppAlertContext } from '@/components/AppAlert'
+import { useContext } from 'react'
 
-export type AlertSeverity = "error" | "success"
+export type AlertSeverity = 'error' | 'success'
 
 export const useAlert = () => {
-
   const {
     setOpen,
     setAlertMessage,
-    setSeverity,
+    setSeverity
   } = useContext(AppAlertContext)
 
-  const showAlert = (message: string, severity: AlertSeverity = "error") => {
+  const showAlert = (message: string, severity: AlertSeverity = 'error') => {
     setAlertMessage(message)
     setSeverity(severity)
     setOpen(true)
@@ -23,6 +22,6 @@ export const useAlert = () => {
 
   return {
     showAlert,
-    closeAlert,
+    closeAlert
   }
 }

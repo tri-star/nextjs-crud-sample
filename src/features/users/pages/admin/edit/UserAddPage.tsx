@@ -1,25 +1,20 @@
-import { AppAlert } from "@/components/AppAlert";
-import { TitleLabel } from "@/components/form/TitleLabel";
-import { PageContainer } from "@/components/PageContainer";
-import PageTitle from "@/components/PageTitle";
-import { Button, Divider, Icon, Paper, Stack, TextField, Typography } from "@mui/material";
-import { NextPage } from "next";
-import { useRouter } from "next/router";
-import { FormProvider } from "react-hook-form";
-import { useUserFormStore } from "./user-form-store";
-import { UserForm } from "./UserForm";
-
+import { AppAlert } from '@/components/AppAlert'
+import { PageContainer } from '@/components/PageContainer'
+import PageTitle from '@/components/PageTitle'
+import { Button, Icon, Stack } from '@mui/material'
+import { NextPage } from 'next'
+import { useRouter } from 'next/router'
+import { FormProvider } from 'react-hook-form'
+import { useUserAddFormStore } from './user-form-store'
+import { UserForm } from './UserForm'
 
 export const UserAddPage: NextPage = () => {
-
   const router = useRouter()
-  const { form, loading, onSubmit, canSubmit } = useUserFormStore()
-  
+  const { form, loading, onSubmit, canSubmit } = useUserAddFormStore()
+
   const handleBack = () => {
     router.back()
   }
-
-  const labelWidth = '180px'
 
   return (
     <PageContainer>

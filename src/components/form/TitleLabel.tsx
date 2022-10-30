@@ -1,6 +1,6 @@
-import { css } from "@emotion/react";
-import { InputLabel } from "@mui/material";
-import { PropsWithChildren, ReactElement } from "react";
+import { css } from '@emotion/react'
+import { InputLabel } from '@mui/material'
+import { PropsWithChildren, ReactElement } from 'react'
 
 type FormLabelProps = {
   width: string
@@ -9,8 +9,8 @@ type FormLabelProps = {
 export const TitleLabel = ({ width, children }: FormLabelProps): ReactElement => {
   const formLabelStyle = css({
     display: 'inline-block',
-    width: width,
-    textAlign: 'right',
+    width,
+    textAlign: 'right'
   })
 
   return (
