@@ -6,7 +6,7 @@ import { AddUserFormData } from "@/features/users/domain/user"
 import { addUser } from "@/features/users/api/add-user"
 import { useAlert } from "@/common/alert"
 import { useLoading } from "@/common/loading"
-
+import create from "zustand/react"
 
 type UserAddFormState = {
   userData: AddUserFormData,
@@ -22,23 +22,8 @@ export const useUserFormStore = () => {
 
   const { showAlert } = useAlert()
   const { loading, withLoading } = useLoading()
-  const state = useState<UserAddFormState>({
-    userData: {
-      name: '',
-      loginId: '',
-      email: ''
-    },
 
-  })
-
-  const {
-    register,
-    handleSubmit,
-    formState: {
-      errors,
-      isValid
-    }
-  } = useForm<AddUserFormData>({
+  const form = useForm<AddUserFormData>({
     mode: "onChange",
     resolver: yupResolver(schema)
   })
@@ -47,7 +32,7 @@ export const useUserFormStore = () => {
     if (loading) {
       return false
     }
-    if (!isValid) {
+    if (!form.formState.isValid) {
       return false
     }
     return true
@@ -66,15 +51,11 @@ export const useUserFormStore = () => {
   }
 
   return {
-    state,
-    schema,
-    errors,
-    isValid,
     loading,
+    schema,
+    form,
 
     onSubmit,
-    register,
-    handleSubmit,
     canSubmit,
   }
 }
