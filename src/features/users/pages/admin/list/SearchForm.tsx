@@ -1,6 +1,6 @@
 import { Button, Grid, InputLabel, Paper, SxProps, TextField, Theme, Typography } from '@mui/material'
 import { css, Stack } from '@mui/system'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { SearchFormData, useSearchFormStore } from './search-form-store'
 
 type Props = {

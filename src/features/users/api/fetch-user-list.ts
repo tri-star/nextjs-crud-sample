@@ -29,7 +29,7 @@ export const useFetchUserList = (shouldFetch: boolean, page: number): FetchUserL
     return res.data
   }
 
-  const { data, error, mutate } = useSWR<FetchUserListData, string>(['admin/users', page], fetcher)
+  const { data, error } = useSWR<FetchUserListData, string>(['admin/users', page], fetcher)
   const response = {
     data: {
       users: undefined,
@@ -40,7 +40,7 @@ export const useFetchUserList = (shouldFetch: boolean, page: number): FetchUserL
     error: undefined
   }
 
-  if (error) {
+  if (error != null) {
     return {
       data: {
         users: undefined,
@@ -71,7 +71,7 @@ export const mockFetchUserList = rest.get(`${appConfig.apiBase}/admin/users`, (r
   const page = +(req.url.searchParams.get('page') ?? '1')
   const pageSize = 50
   const totalCount = mockDb.user.count()
-  const pages = Math.trunc(totalCount / pageSize) + ((totalCount % pageSize == 0) ? 0 : 1)
+  const pages = Math.trunc(totalCount / pageSize) + ((totalCount % pageSize === 0) ? 0 : 1)
 
   const users = mockDb.user.findMany({
     take: 50,

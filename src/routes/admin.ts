@@ -1,4 +1,4 @@
-import { UrlBuilder, UrlParts } from '@/common/url-builder'
+import { UrlBuilder } from '@/common/url-builder'
 
 export const adminUserListUrl = (page: number): UrlBuilder => {
   const path = '/admin/users'
@@ -18,5 +18,5 @@ export const adminUserDetailUrl = (userId: number) => {
 }
 
 export const adminUserAddUrl = () => {
-  return `/admin/users/add`
+  return '/admin/users/add'
 }

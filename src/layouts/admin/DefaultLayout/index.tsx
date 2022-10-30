@@ -1,5 +1,5 @@
 import { AppAlertProvider } from '@/components/AppAlert'
-import { AppBar, Box, Container, createTheme, CssBaseline, Divider, Drawer, Icon, IconButton, List, ThemeProvider, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Container, createTheme, CssBaseline, Icon, IconButton, ThemeProvider, Toolbar, Typography } from '@mui/material'
 import { PropsWithChildren, useState } from 'react'
 import { AppDrawer, drawerWidth } from './AppDrawer'
 

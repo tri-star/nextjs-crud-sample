@@ -1,4 +1,3 @@
-import { getApiBaseUrl } from '@/common/api'
 import { isServer } from '@/common/ssr'
 import { setupWorker, SetupWorkerApi } from 'msw'
 import { handlers } from './handlers'

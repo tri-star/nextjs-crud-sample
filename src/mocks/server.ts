@@ -1,13 +1,11 @@
 import { handlers } from './handlers'
 
-const mswNode = require('msw/node')
+import mswNode from 'msw/node'
 
-// @ts-expect-error
-let server
+let server: mswNode.SetupServerApi | undefined
 
 export const startMockServer = () => {
-  // @ts-expect-error
-  if (!server) {
+  if (server == null) {
     server = mswNode.setupServer(...handlers)
     server.listen()
   }

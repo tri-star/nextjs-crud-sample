@@ -18,13 +18,16 @@ export const loadDb = () => {
   if (isServer()) {
     return
   }
-  return Object.assign(JSON.parse(window.localStorage.getItem('msw-db') || '{}'))
+  const content = window.localStorage.getItem('msw-db') ?? '{}'
+  return Object.assign(JSON.parse(content) as object)
 }
 
 export const persistDb = (model: Model) => {
   if (process.env.NODE_ENV === 'test' || isServer()) {
     return
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const data = loadDb()
   data[model] = mockDb[model]
   window.localStorage.setItem('msw-db', JSON.stringify(data))
@@ -34,10 +37,12 @@ export const initDb = () => {
   if (isServer()) {
     return
   }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const db = loadDb()
   Object.entries(mockDb).forEach(([key, model]) => {
+    // eslint-expect-error
     const rows = db[key]
-    if (rows) {
+    if (Array.isArray(rows)) {
       rows.forEach((row: Record<string, any>) => {
         model.create(row)
       })
@@ -45,6 +50,7 @@ export const initDb = () => {
   })
 
   if (mockDb.user.count() === 0) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     [...Array(500)].forEach((_, i) => {
       const id = i + 1
       mockDb.user.create({

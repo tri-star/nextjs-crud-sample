@@ -12,7 +12,7 @@ export class UrlBuilder {
   build (): string {
     let url = this.urlParts.path
     if (Array.from(this.urlParts.searchParams?.keys() ?? []).length > 0) {
-      url += '?' + this.urlParts.searchParams?.toString()
+      url += `?${this.urlParts.searchParams?.toString()}`
     }
     return url
   }

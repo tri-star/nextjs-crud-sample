@@ -22,7 +22,7 @@ export const UserForm = (): ReactElement => {
           size="small"
           {...register('loginId')}
           error={(errors.loginId != null)}
-          helperText={`${errors.loginId?.message ?? ' '}`}
+          helperText={`${errors.loginId?.message?.toString() ?? ' '}`}
           autoComplete="new-password"
         />
       </Stack>
@@ -33,7 +33,7 @@ export const UserForm = (): ReactElement => {
           size="small"
           {...register('name')}
           error={(errors.name != null)}
-          helperText={`${errors.name?.message ?? ' '}`}
+          helperText={`${errors.name?.message?.toString() ?? ' '}`}
         />
       </Stack>
       <Stack direction="row" spacing={2} my={1}>
@@ -43,7 +43,7 @@ export const UserForm = (): ReactElement => {
           size="small"
           {...register('email')}
           error={(errors.email != null)}
-          helperText={`${errors.email?.message ?? ' '}`}
+          helperText={`${errors.email?.message?.toString() ?? ' '}`}
           autoComplete="new-password"
         />
       </Stack>

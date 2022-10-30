@@ -1,5 +1,5 @@
 import { AlertSeverity, useAlert } from '@/common/alert'
-import { Alert, AlertColor, Collapse, Icon, IconButton } from '@mui/material'
+import { Alert, AlertColor, Collapse } from '@mui/material'
 import { createContext, PropsWithChildren, ReactElement, useContext, useState } from 'react'
 
 export const AppAlertContext = createContext<{

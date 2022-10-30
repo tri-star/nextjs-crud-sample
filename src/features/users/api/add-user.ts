@@ -25,7 +25,11 @@ export const addUser = async (data: AddUserFormData) => {
 }
 
 export const mockAddUser = rest.post(`${appConfig.apiBase}/admin/users`, async (req, res, ctx) => {
-  const { name, loginId, email } = await req.json()
+  const { name, loginId, email } = await req.json<{
+    name: string
+    loginId: string
+    email: string
+  }>()
 
   try {
     const user = mockDb.user.create({

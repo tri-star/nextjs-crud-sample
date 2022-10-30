@@ -2,7 +2,7 @@ import { CenterBox } from '@/components/CenterBox'
 import { PageContainer } from '@/components/PageContainer'
 import PageTitle from '@/components/PageTitle'
 import { adminUserAddUrl, adminUserListUrl } from '@/routes/admin'
-import { Box, Button, CircularProgress, Icon, IconButton, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Icon, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -13,7 +13,7 @@ import { useSearchFormStore } from './search-form-store'
 import { SearchForm } from './SearchForm'
 
 const UserListPart = (users: User[] | undefined, error: string | undefined): ReactNode => {
-  if (error) {
+  if (error != null) {
     return (
       <TableRow>
         <TableCell colSpan={5}>検索中にエラーが発生しました。</TableCell>
@@ -64,7 +64,7 @@ export const AdminUserListPage: NextPage = () => {
         shallow: true
       })
     }
-  }, [currentPage])
+  }, [router, currentPage])
 
   const handleAddClick = () => {
     router.push(adminUserAddUrl().toString())
