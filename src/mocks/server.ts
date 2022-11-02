@@ -1,6 +1,6 @@
 import { handlers } from './handlers'
 
-import mswNode from 'msw/node'
+const mswNode = require('msw/node')
 
 let server: mswNode.SetupServerApi | undefined
 

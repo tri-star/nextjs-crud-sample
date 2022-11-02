@@ -1,7 +1,7 @@
 import { CenterBox } from '@/components/CenterBox'
 import { PageContainer } from '@/components/PageContainer'
 import PageTitle from '@/components/PageTitle'
-import { adminUserAddUrl, adminUserListUrl } from '@/routes/admin'
+import { adminUserAddUrl } from '@/routes/admin'
 import { Box, Button, CircularProgress, Icon, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { NextPage } from 'next'
 import Link from 'next/link'
@@ -56,15 +56,17 @@ export const AdminUserListPage: NextPage = () => {
     if (router.isReady) {
       setCurrentPage(+(router.query.page ?? 1))
     }
-  }, [router, router.query])
+  }, [router, router.query, setCurrentPage])
 
-  useEffect(() => {
-    if (router.isReady) {
-      router.push(adminUserListUrl(currentPage).toString(), undefined, {
-        shallow: true
-      })
-    }
-  }, [router, currentPage])
+  const movePage = (newPage: number) => {
+    const query = router.query
+    query.page = newPage.toString()
+
+    router.push({
+      pathname: router.pathname,
+      query
+    })
+  }
 
   const handleAddClick = () => {
     router.push(adminUserAddUrl().toString())
@@ -82,7 +84,7 @@ export const AdminUserListPage: NextPage = () => {
       <Stack my={1} spacing={2} direction="row" alignItems="center">
         <span>ユーザー数: {data.count}</span>
         <Box sx={{ flexGrow: 1 }}/>
-        <Pagination count={data.pages} page={data.page ?? 1} shape="rounded" onChange={(_, p) => setCurrentPage(p)} />
+        <Pagination count={data.pages} page={data.page ?? 1} shape="rounded" onChange={(_, p) => movePage(p)} />
       </Stack>
       <TableContainer component={Paper}>
         <Table stickyHeader={true}>
