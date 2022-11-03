@@ -3,13 +3,14 @@ import { delay } from '@/common/delay'
 import { axios } from '@/lib/axios'
 import { mockDb } from '@/mocks/db'
 import { rest } from 'msw'
-import useSWR from 'swr'
+import useSWR, { KeyedMutator } from 'swr'
 import { User } from '../domain/user'
 
 type FetchUserDetailData = User
 
 type FetchUserDetailResponse = {
   data: FetchUserDetailData
+  mutate: KeyedMutator<FetchUserDetailData>
 }
 
 export const useFetchUserDetail = (userId: string | null): FetchUserDetailResponse => {
@@ -19,12 +20,13 @@ export const useFetchUserDetail = (userId: string | null): FetchUserDetailRespon
     return res.data
   }
 
-  const { data } = useSWR<FetchUserDetailData, string>(`admin/users/${userId}`, fetcher, {
+  const { data, mutate } = useSWR<FetchUserDetailData, string>(`admin/users/${userId}`, fetcher, {
     suspense: true
   })
 
   return {
-    data: data as FetchUserDetailData
+    data: data as FetchUserDetailData,
+    mutate
   }
 }
 

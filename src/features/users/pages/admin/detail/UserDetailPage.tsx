@@ -5,6 +5,7 @@ import { ValueLabel } from '@/components/form/ValueLabel'
 import { PageContainer } from '@/components/PageContainer'
 import PageTitle from '@/components/PageTitle'
 import { useFetchUserDetail } from '@/features/users/api/fetch-user-detail'
+import { adminUserEditUrl } from '@/routes/admin'
 import { Button, CircularProgress, Icon, Paper, Stack } from '@mui/material'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -16,6 +17,10 @@ import { ReactElement, Suspense } from 'react'
 const DetailInfo = ({ userId }: { userId: string }): ReactElement => {
   const router = useRouter()
   const { data } = useFetchUserDetail(`${userId}`)
+
+  const handleEdit = () => {
+    router.push(adminUserEditUrl(userId))
+  }
 
   const handleBack = () => {
     router.back()
@@ -43,7 +48,7 @@ const DetailInfo = ({ userId }: { userId: string }): ReactElement => {
       </Stack>
 
       <Stack direction="row" spacing={2} justifyContent="center" my={2}>
-        <Button variant="contained" startIcon={<Icon>edit</Icon>}>編集</Button>
+        <Button variant="contained" startIcon={<Icon>edit</Icon>} onClick={handleEdit}>編集</Button>
         <Button variant="contained" startIcon={<Icon>chevron_left</Icon>} onClick={handleBack}>戻る</Button>
       </Stack>
     </>

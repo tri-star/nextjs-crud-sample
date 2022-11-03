@@ -5,6 +5,8 @@ import { AddUserFormData, EditUserFormData } from '@/features/users/domain/user'
 import { addUser } from '@/features/users/api/add-user'
 import { useAlert } from '@/common/alert'
 import { useLoading } from '@/common/loading'
+import { useFetchUserDetail } from '@/features/users/api/fetch-user-detail'
+import { editUser } from '@/features/users/api/edit-user'
 
 const schema = yup.object({
   name: yup.string().required(),
@@ -55,6 +57,7 @@ export const useUserAddFormStore = () => {
 export const useUserEditFormStore = (userId: string) => {
   const { showAlert } = useAlert()
   const { loading, withLoading } = useLoading()
+  const { data, mutate } = useFetchUserDetail(userId)
 
   const form = useForm<EditUserFormData>({
     mode: 'onChange',
@@ -74,8 +77,9 @@ export const useUserEditFormStore = (userId: string) => {
   const onSubmit = async (data: EditUserFormData) => {
     try {
       await withLoading(async () => {
-        // await editUser(data)
-        showAlert('登録完了しました', 'success')
+        await editUser(userId, data)
+        mutate()
+        showAlert('更新完了しました', 'success')
       })
     } catch (e) {
       showAlert('エラーが発生しました')
@@ -83,6 +87,7 @@ export const useUserEditFormStore = (userId: string) => {
   }
 
   return {
+    data,
     loading,
     schema,
     form,
