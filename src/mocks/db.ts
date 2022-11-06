@@ -29,7 +29,9 @@ export const persistDb = (model: Model) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const data = loadDb()
-  data[model] = mockDb[model]
+  // @ts-expect-error mockDb[model]がanyとして認識されてしまうため
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  data[model] = mockDb[model].getAll()
   window.localStorage.setItem('msw-db', JSON.stringify(data))
 }
 
@@ -61,6 +63,7 @@ export const initDb = () => {
         departmentId: 1
       })
     })
+    persistDb('user')
   }
 }
 

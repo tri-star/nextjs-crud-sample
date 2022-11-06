@@ -1,7 +1,7 @@
 import { appConfig } from '@/app-config'
 import { delay } from '@/common/delay'
 import { axios } from '@/lib/axios'
-import { mockDb } from '@/mocks/db'
+import { mockDb, persistDb } from '@/mocks/db'
 import { ulid } from 'ulid'
 import { rest } from 'msw'
 import { AddUserFormData } from '../domain/user'
@@ -38,6 +38,7 @@ export const mockAddUser = rest.post(`${appConfig.apiBase}/admin/users`, async (
       loginId,
       email
     })
+    persistDb('user')
     return await res(ctx.status(200), ctx.json(user))
   } catch (e) {
     if (e instanceof Error) {
