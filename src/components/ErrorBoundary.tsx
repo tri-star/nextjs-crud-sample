@@ -9,13 +9,9 @@ interface ErrorBoundaryProps extends PropsWithChildren {
   fallback: (error: Error) => ReactElement
 }
 
-export class ErrorBoundary<P extends ErrorBoundaryProps, S extends ErrorBoundaryState = ErrorBoundaryState, SS = any> extends Component<P, S, SS> {
-  constructor (props: P) {
-    super(props)
-
-    this.setState(() => ({
-      hasError: false
-    }))
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  public state: ErrorBoundaryState = {
+    hasError: false
   }
 
   static getDerivedStateFromError (/* error: any */) {
