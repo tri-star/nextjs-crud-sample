@@ -8,7 +8,14 @@ export const mockDb = factory({
     loginId: String,
     name: String,
     email: String,
+    verified: Boolean,
     departmentId: Number
+  },
+  signup_tokens: {
+    id: primaryKey(String),
+    userId: String,
+    token: String,
+    expiresAt: Date
   }
 })
 
@@ -60,6 +67,7 @@ export const initDb = () => {
         loginId: `user_${id}`,
         name: `ユーザー${id}`,
         email: `test${id}@example.com`,
+        verified: true,
         departmentId: 1
       })
     })
