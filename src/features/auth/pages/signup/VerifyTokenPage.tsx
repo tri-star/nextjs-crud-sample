@@ -1,6 +1,6 @@
 import { BeforeSigninLayout } from '@/layouts/app/BeforeSigninLayout'
 import { NextPageWithLayout } from '@/pages/_app'
-import { Box, CircularProgress } from '@mui/material'
+import { Box, CircularProgress, Container } from '@mui/material'
 import { useRouter } from 'next/router'
 import { ReactNode, Suspense } from 'react'
 import { useVerifySignupToken } from '../../api/signup-token'
@@ -41,11 +41,11 @@ export const VerifyTokenPage: NextPageWithLayout = () => {
   const loading = (<CircularProgress/>)
 
   return (
-  <Box>
+  <Container maxWidth="md" sx={{ mt: 4 }}>
     <Suspense fallback={loading}>
       <VerificationResultContent/>
     </Suspense>
-  </Box>
+  </Container>
   )
 }
 
