@@ -27,7 +27,7 @@ export const NewPasswordForm = (): ReactElement => {
           />
           <Divider orientation="vertical" variant="middle" flexItem />
           <Box>
-            <p>パスワードは以下の規則で入力してください</p>
+            <p css={{ 'margin-block-start': 0 }}>パスワードは以下の規則で入力してください</p>
             <ul>
               <li>8文字以上</li>
               <li>英字/数字/記号のいずれかを2種類以上</li>

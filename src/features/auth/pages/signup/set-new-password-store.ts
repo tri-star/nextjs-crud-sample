@@ -10,7 +10,7 @@ export type SetNewPasswordFormData = {
 export const useSetNewPasswordForm = () => {
   const schema = yup.object({
     newPassword: yup.string().required().min(8),
-    confirmation: yup.string().required()
+    confirmation: yup.string().required().oneOf([yup.ref('newPassword')], 'パスワードが一致していません')
   }).required()
 
   return useForm<SetNewPasswordFormData>({
