@@ -6,7 +6,7 @@ import { ReactNode, Suspense } from 'react'
 import { FormProvider } from 'react-hook-form'
 import { useVerifySignupToken } from '../../api/signup-token'
 import { NewPasswordForm } from './NewPasswordForm'
-import { useSetNewPasswordStore } from './set-new-password-store'
+import { useSetNewPasswordForm } from './set-new-password-store'
 
 const VerificationResultContent = () => {
   const router = useRouter()
@@ -44,7 +44,7 @@ const VerificationResultContent = () => {
 }
 
 export const VerifyTokenPage: NextPageWithLayout = () => {
-  const { form } = useSetNewPasswordStore()
+  const form = useSetNewPasswordForm()
   const loading = (<CircularProgress/>)
 
   return (

@@ -2,9 +2,11 @@ import { TitleLabel } from '@/components/form/TitleLabel'
 import { Box, Button, Divider, Icon, Stack, TextField } from '@mui/material'
 import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { SetNewPasswordFormData, useSetNewPasswordStore } from './set-new-password-store'
 
 export const NewPasswordForm = (): ReactElement => {
-  const { register, formState: { errors, isValid } } = useFormContext()
+  const form = useFormContext<SetNewPasswordFormData>()
+  const { canSubmit } = useSetNewPasswordStore(form)
   const labelWidth = '180px'
   const inputWIdth = '350px'
 
@@ -18,9 +20,9 @@ export const NewPasswordForm = (): ReactElement => {
             size="small"
             type="password"
             autoComplete="new-password"
-            error={ errors.newPassword != null }
-            helperText={`${errors.newPassword?.message?.toString() ?? ' '}`}
-            {...register('newPassword')}
+            error={ form.formState.errors.newPassword != null }
+            helperText={`${form.formState.errors.newPassword?.message?.toString() ?? ' '}`}
+            {...form.register('newPassword')}
             sx={{ width: inputWIdth }}
           />
           <Divider orientation="vertical" variant="middle" flexItem />
@@ -39,9 +41,9 @@ export const NewPasswordForm = (): ReactElement => {
             size="small"
             type="password"
             autoComplete="new-password"
-            error={ errors.confirmation != null }
-            helperText={`${errors.confirmation?.message?.toString() ?? ' '}`}
-            {...register('confirmation')}
+            error={ form.formState.errors.confirmation != null }
+            helperText={`${form.formState.errors.confirmation?.message?.toString() ?? ' '}`}
+            {...form.register('confirmation')}
             sx={{ width: inputWIdth }}
           />
           <Divider orientation="vertical" variant="middle" flexItem />
@@ -50,7 +52,7 @@ export const NewPasswordForm = (): ReactElement => {
           <Button
             variant="contained"
             startIcon={<Icon>done-outline</Icon>}
-            disabled={!isValid}
+            disabled={!canSubmit()}
           >
             決定
           </Button>
