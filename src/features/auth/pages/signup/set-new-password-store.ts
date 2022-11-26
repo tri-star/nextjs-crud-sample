@@ -1,6 +1,10 @@
+import { appHomeUrl } from '@/routes/app'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter } from 'next/router'
 import { useForm, UseFormReturn } from 'react-hook-form'
 import * as yup from 'yup'
+import { acceptRegistration } from '../../api/accept-registration'
+import { AuthService, AuthServiceInterface } from '../../services/auth-service'
 
 export type SetNewPasswordFormData = {
   newPassword: string
@@ -19,7 +23,12 @@ export const useSetNewPasswordForm = () => {
   })
 }
 
-export const useSetNewPasswordStore = (form: UseFormReturn<SetNewPasswordFormData>) => {
+export const useSetNewPasswordStore = (form: UseFormReturn<SetNewPasswordFormData>,
+  authService: AuthServiceInterface = new AuthService()
+) => {
+  const router = useRouter()
+  const signupToken = `${router.query.token ?? ''}`
+
   const canSubmit = () => {
     if (!form.formState.isValid) {
       return false
@@ -28,7 +37,13 @@ export const useSetNewPasswordStore = (form: UseFormReturn<SetNewPasswordFormDat
   }
 
   const onSubmit = async (data: SetNewPasswordFormData) => {
-    console.info(data)
+    // acceptのAPIを呼ぶ
+    // 処理中はロード中状態
+    // 成功したらトップ画面にリダイレクト
+    // 完了のアラートを上部に表示する
+    const result = await acceptRegistration(signupToken, data.newPassword)
+    authService.save(result.signinToken)
+    router.push(appHomeUrl())
   }
 
   return {

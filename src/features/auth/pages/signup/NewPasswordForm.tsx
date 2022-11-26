@@ -6,13 +6,13 @@ import { SetNewPasswordFormData, useSetNewPasswordStore } from './set-new-passwo
 
 export const NewPasswordForm = (): ReactElement => {
   const form = useFormContext<SetNewPasswordFormData>()
-  const { canSubmit } = useSetNewPasswordStore(form)
+  const { canSubmit, onSubmit } = useSetNewPasswordStore(form)
   const labelWidth = '180px'
   const inputWIdth = '350px'
 
   return (
     <>
-      <form autoComplete="off" >
+      <form autoComplete="off" onSubmit={form.handleSubmit(onSubmit)} >
         <Stack direction="row" spacing={2} my={1} justifyContent="start">
           <TitleLabel width={labelWidth}>新しいパスワード</TitleLabel>
           <Divider orientation="vertical" variant="middle" flexItem />
@@ -50,6 +50,7 @@ export const NewPasswordForm = (): ReactElement => {
         </Stack>
         <Stack direction="row" spacing={2} my={4} justifyContent="center">
           <Button
+            type="submit"
             variant="contained"
             startIcon={<Icon>done-outline</Icon>}
             disabled={!canSubmit()}

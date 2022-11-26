@@ -1,4 +1,5 @@
-import { mockVerifySignupToken } from '@/features/auth/api/signup-token'
+import { mockAcceptSignupToken } from '@/features/auth/api/accept-registration'
+import { mockVerifySignupToken } from '@/features/auth/api/verify-signup-token'
 import { mockAddUser } from '@/features/users/api/add-user'
 import { mockEditUser } from '@/features/users/api/edit-user'
 import { mockFetchUserDetail } from '@/features/users/api/fetch-user-detail'
@@ -10,5 +11,6 @@ export const handlers: RequestHandler[] = [
   mockFetchUserDetail,
   mockAddUser,
   mockEditUser,
-  mockVerifySignupToken
+  mockVerifySignupToken,
+  mockAcceptSignupToken
 ]

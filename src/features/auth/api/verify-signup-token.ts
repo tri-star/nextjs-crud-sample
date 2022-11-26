@@ -47,7 +47,6 @@ export const useVerifySignupToken = (token: string) => {
 
 export const mockVerifySignupToken = rest.get(`${appConfig.apiBase}/auth/signup/token/:token`, (req, res, ctx) => {
   const { token } = req.params
-  console.info(token)
 
   try {
     const signupToken = mockDb.signup_tokens.findFirst({

@@ -4,7 +4,7 @@ import { Box, CircularProgress, Container, Paper } from '@mui/material'
 import { useRouter } from 'next/router'
 import { ReactNode, Suspense } from 'react'
 import { FormProvider } from 'react-hook-form'
-import { useVerifySignupToken } from '../../api/signup-token'
+import { useVerifySignupToken } from '../../api/verify-signup-token'
 import { NewPasswordForm } from './NewPasswordForm'
 import { useSetNewPasswordForm } from './set-new-password-store'
 

@@ -39,6 +39,7 @@ export const mockAddUser = rest.post(`${appConfig.apiBase}/admin/users`, async (
       id: ulid(),
       name,
       loginId,
+      password: '',
       email,
       verified: false
     })

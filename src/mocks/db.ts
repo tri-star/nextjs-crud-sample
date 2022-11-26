@@ -6,6 +6,7 @@ export const mockDb = factory({
   user: {
     id: primaryKey(String),
     loginId: String,
+    password: String,
     name: String,
     email: String,
     verified: Boolean,
@@ -16,7 +17,14 @@ export const mockDb = factory({
     userId: String,
     token: String,
     expiresAt: Date
+  },
+  signin_tokens: {
+    id: primaryKey(String),
+    userId: String,
+    token: String,
+    expiresAt: Date
   }
+
 })
 
 type Model = keyof typeof mockDb
@@ -65,6 +73,7 @@ export const initDb = () => {
       mockDb.user.create({
         id: ulid(),
         loginId: `user_${id}`,
+        password: `user_${id}`, // 実際のサーバー側ではSHA256でハッシュ化する
         name: `ユーザー${id}`,
         email: `test${id}@example.com`,
         verified: true,
