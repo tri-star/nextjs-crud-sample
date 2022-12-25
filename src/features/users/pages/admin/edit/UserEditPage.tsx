@@ -6,7 +6,7 @@ import PageTitle from '@/components/PageTitle'
 import { Button, CircularProgress, Icon, Stack } from '@mui/material'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { Suspense, useEffect } from 'react'
+import { Suspense } from 'react'
 import { FormProvider } from 'react-hook-form'
 import { useUserEditFormStore } from './user-form-store'
 import { UserForm } from './UserForm'
@@ -14,13 +14,7 @@ import { UserForm } from './UserForm'
 const UserEditForm = (): JSX.Element => {
   const router = useRouter()
   const id = `${router.query.id ?? ''}`
-  const { data, form, loading, onSubmit, canSubmit } = useUserEditFormStore(id)
-
-  useEffect(() => {
-    if (data != null) {
-      form.reset(data)
-    }
-  }, [data, form])
+  const { form, loading, onSubmit, canSubmit } = useUserEditFormStore(id)
 
   const handleBack = () => {
     router.back()

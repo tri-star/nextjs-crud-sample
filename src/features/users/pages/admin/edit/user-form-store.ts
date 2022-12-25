@@ -61,7 +61,8 @@ export const useUserEditFormStore = (userId: string) => {
 
   const form = useForm<EditUserFormData>({
     mode: 'onChange',
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
+    defaultValues: data
   })
 
   const canSubmit = () => {
